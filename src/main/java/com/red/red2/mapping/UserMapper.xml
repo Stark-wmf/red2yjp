@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.red.red2.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.red.red2.been.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="role" jdbcType="VARCHAR" property="role" />
+        <result column="company" jdbcType="VARCHAR" property="company" />
+    </resultMap>
+    <select id="getRole" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT role
+        FROM user
+        WHERE username = #{username}
+    </select>
+    <insert id="insertUser">
+        insert into user set username = #{0}, password = #{1}, role = #{2}, company = #{3}
+    </insert>
+    <select id="IfUserExist" resultType="Integer">
+        SELECT COUNT(username) FROM user WHERE username =#{0}
+    </select>
+    <select id="getPassword" parameterType="java.lang.String" resultType="String">
+    SELECT password
+    FROM user
+    WHERE username = #{username}
+</select>
+    <select id="getUser" parameterType="java.lang.String" resultType="com.red.red2.been.User">
+        SELECT *
+        FROM user
+        WHERE username = #{username}
+    </select>
+    <update id="modifyMessage" parameterType="com.red.red2.been.User">
+        update user set username=#{username}, password = #{password},company=#{company} where username = #{username}
+    </update>
+</mapper>
